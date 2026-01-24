@@ -7,6 +7,8 @@ import Cart from './routes/ClientHome/Cart';
 import { useState } from 'react';
 import { ContextCartCount } from './utils/context-cart';
 import Login from './routes/ClientHome/Login';
+import Admin from './routes/Admin';
+import HomeAdmin from './routes/Admin/HomeAdmin';
 
 
 function App() {
@@ -19,13 +21,16 @@ function App() {
         <BrowserRouter>
           <Routes>
               <Route path='/' element={<ClientHome />}>
-                <Route index element={<Catalog />}></Route>
+                <Route index element={<Login />}></Route>
                 <Route path='catalog' element={<Catalog />} />
                 <Route path='product-details/:productId' element={<ProductDetails />} />
                 <Route path='cart' element={<Cart />} />
                 <Route path='login' element={<Login />} />
               </Route>
               <Route path='*' element={<Navigate to="/" />} />
+              <Route path="/admin" element={<Admin />}>
+                <Route index element={<HomeAdmin />}/>
+              </Route>
           </Routes>
         </BrowserRouter>
       </ContextCartCount.Provider>
