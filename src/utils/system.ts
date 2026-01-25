@@ -6,4 +6,4 @@ export const TOKEN_KEY = "com.devsuperior.descommerce/Token"
 
 export const CLIENT_ID = "myclientid"
 
-export const CLIENT_SECRET = "myclientSecret"
+export const CLIENT_SECRET = "myclientsecret"

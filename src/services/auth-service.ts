@@ -10,16 +10,16 @@ export function loginRequest(loginData: CredentialsDTO) {
 
     const headers = {
         "Content-Type": "application/x-www-form-urlencoded",
-        Autorization: "Basic " + window.btoa(CLIENT_ID + ":" + CLIENT_SECRET)
+        Authorization: "Basic " + window.btoa(CLIENT_ID + ":" + CLIENT_SECRET)
     }
 
     const requestBody = QueryString.stringify({...loginData, grant_type: "password"});
 
     const config : AxiosRequestConfig = {
         method: "POST",
-        url: "/oauth/token",
+        url: "/oauth2/token",
         data: requestBody,
-        headers
+        headers: headers
     }
     return requestBackend(config);
 }
@@ -33,5 +33,5 @@ export function saveAccessToken(token: string){
 }
 
 export function getAccessToken(){
-    accessTokenRepository.get();
+    return accessTokenRepository.get();
 }
