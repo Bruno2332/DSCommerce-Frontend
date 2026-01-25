@@ -859,6 +859,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/jwt-decode@npm:3.1.0":
+  version: 3.1.0
+  resolution: "@types/jwt-decode@npm:3.1.0"
+  dependencies:
+    jwt-decode: "npm:*"
+  checksum: 10c0/3757ac7fdd09ae74c47f6aea815f08f4ca9890b8a09a75be0947f6ff7bc9e2206ed619e3db4ebb414adee37888dc55d260705530b5a43b79a029f45469bbff92
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:^24.10.1":
   version: 24.10.7
   resolution: "@types/node@npm:24.10.7"
@@ -1364,6 +1373,7 @@ __metadata:
   resolution: "dscommerce@workspace:."
   dependencies:
     "@eslint/js": "npm:^9.39.2"
+    "@types/jwt-decode": "npm:3.1.0"
     "@types/node": "npm:^24.10.1"
     "@types/qs": "npm:6.9.7"
     "@types/react": "npm:^19.2.5"
@@ -1378,6 +1388,7 @@ __metadata:
     eslint-plugin-react-refresh: "npm:^0.4.24"
     globals: "npm:^16.5.0"
     history: "npm:5.3.0"
+    jwt-decode: "npm:3.1.2"
     qs: "npm:6.11.0"
     react: "npm:19"
     react-dom: "npm:19"
@@ -2149,6 +2160,20 @@ __metadata:
   bin:
     json5: lib/cli.js
   checksum: 10c0/5a04eed94810fa55c5ea138b2f7a5c12b97c3750bc63d11e511dcecbfef758003861522a070c2272764ee0f4e3e323862f386945aeb5b85b87ee43f084ba586c
+  languageName: node
+  linkType: hard
+
+"jwt-decode@npm:*":
+  version: 4.0.0
+  resolution: "jwt-decode@npm:4.0.0"
+  checksum: 10c0/de75bbf89220746c388cf6a7b71e56080437b77d2edb29bae1c2155048b02c6b8c59a3e5e8d6ccdfd54f0b8bda25226e491a4f1b55ac5f8da04cfbadec4e546c
+  languageName: node
+  linkType: hard
+
+"jwt-decode@npm:3.1.2":
+  version: 3.1.2
+  resolution: "jwt-decode@npm:3.1.2"
+  checksum: 10c0/a951547946b5e8b1d9df818152d6b1dbaf13eebb3a6e6daceedf888968f5d255959852c8188aae2c825dc9104a99d25cb6c23f25d76545d1aa0315b968b6912e
   languageName: node
   linkType: hard
 
