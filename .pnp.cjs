@@ -43,6 +43,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react-hooks", "virtual:1b3781c785ba78e1ba61e48e9453cec4950f146e3df30eff6fb491bffc2804cd779eefcc64877efcda81c4593d5356e1a64d86f3b28ec5d883a0fdfcb0df05b3#npm:7.0.1"],\
           ["eslint-plugin-react-refresh", "virtual:1b3781c785ba78e1ba61e48e9453cec4950f146e3df30eff6fb491bffc2804cd779eefcc64877efcda81c4593d5356e1a64d86f3b28ec5d883a0fdfcb0df05b3#npm:0.4.26"],\
           ["globals", "npm:16.5.0"],\
+          ["history", "npm:5.3.0"],\
           ["qs", "npm:6.11.0"],\
           ["react", "npm:19.2.3"],\
           ["react-dom", "virtual:1b3781c785ba78e1ba61e48e9453cec4950f146e3df30eff6fb491bffc2804cd779eefcc64877efcda81c4593d5356e1a64d86f3b28ec5d883a0fdfcb0df05b3#npm:19.2.3"],\
@@ -271,6 +272,15 @@ const RAW_RUNTIME_STATE =
         "packagePeers": [\
           "@babel/core",\
           "@types/babel__core"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@babel/runtime", [\
+      ["npm:7.28.6", {\
+        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/@babel-runtime-npm-7.28.6-f40c99aeef-10c0.zip/node_modules/@babel/runtime/",\
+        "packageDependencies": [\
+          ["@babel/runtime", "npm:7.28.6"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -1833,6 +1843,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react-hooks", "virtual:1b3781c785ba78e1ba61e48e9453cec4950f146e3df30eff6fb491bffc2804cd779eefcc64877efcda81c4593d5356e1a64d86f3b28ec5d883a0fdfcb0df05b3#npm:7.0.1"],\
           ["eslint-plugin-react-refresh", "virtual:1b3781c785ba78e1ba61e48e9453cec4950f146e3df30eff6fb491bffc2804cd779eefcc64877efcda81c4593d5356e1a64d86f3b28ec5d883a0fdfcb0df05b3#npm:0.4.26"],\
           ["globals", "npm:16.5.0"],\
+          ["history", "npm:5.3.0"],\
           ["qs", "npm:6.11.0"],\
           ["react", "npm:19.2.3"],\
           ["react-dom", "virtual:1b3781c785ba78e1ba61e48e9453cec4950f146e3df30eff6fb491bffc2804cd779eefcc64877efcda81c4593d5356e1a64d86f3b28ec5d883a0fdfcb0df05b3#npm:19.2.3"],\
@@ -2493,6 +2504,16 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["hermes-estree", "npm:0.25.1"],\
           ["hermes-parser", "npm:0.25.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["history", [\
+      ["npm:5.3.0", {\
+        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/history-npm-5.3.0-00136b6a63-10c0.zip/node_modules/history/",\
+        "packageDependencies": [\
+          ["@babel/runtime", "npm:7.28.6"],\
+          ["history", "npm:5.3.0"]\
         ],\
         "linkType": "HARD"\
       }]\

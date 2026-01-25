@@ -9,6 +9,8 @@ import { ContextCartCount } from './utils/context-cart';
 import Login from './routes/ClientHome/Login';
 import Admin from './routes/Admin';
 import HomeAdmin from './routes/Admin/HomeAdmin';
+import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
+import {history} from './utils/history';
 
 
 function App() {
@@ -18,7 +20,7 @@ function App() {
   return (
     <>
       <ContextCartCount.Provider value={{contextCartCount, setContextCartCount}}>
-        <BrowserRouter>
+        <HistoryRouter history={history}>
           <Routes>
               <Route path='/' element={<ClientHome />}>
                 <Route index element={<Login />}></Route>
@@ -32,7 +34,7 @@ function App() {
                 <Route index element={<HomeAdmin />}/>
               </Route>
           </Routes>
-        </BrowserRouter>
+        </HistoryRouter>
       </ContextCartCount.Provider>
     </>
     
