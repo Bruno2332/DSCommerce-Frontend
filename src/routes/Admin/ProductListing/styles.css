@@ -1,0 +1,15 @@
+#product-listing-section {
+    padding: 20px 0;
+}
+
+.prduct-listing-image {
+    width: 69px;
+    display: block;
+}
+
+.product-listing-icon {
+    height: 20px;
+    width: auto;
+    cursor: pointer;
+    margin: 5px;
+}

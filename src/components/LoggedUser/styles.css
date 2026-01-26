@@ -1,0 +1,10 @@
+.logged-menu {
+    text-align: right;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.logged-menu p {
+    font-size: 12px;
+    font-weight: 400;
+}

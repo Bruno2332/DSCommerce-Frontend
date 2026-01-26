@@ -43,6 +43,9 @@ main {
     padding: 0 20px;
 }
 
+section {
+    padding: 0 20px;
+}
 /* generic Styles */
 
 .container {
@@ -100,7 +103,7 @@ nav h1 {
 
 nav a {
     font-size: 14px;
-    font-weight: 700;
+    
 }
 
 .navbar-right {
@@ -127,10 +130,11 @@ nav a {
     display: none;
     margin-left: 5px;
     font-size: 14px;
+    
 }
 
 .menu-item-active {
-    font-weight: 700;
+    font-weight: 700 ;
 }
 
 .logged-user {

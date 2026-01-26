@@ -1,30 +1,35 @@
 import './styles.css'
 import productIcon from '../../assets/product.svg'
 import homeIcon from '../../assets/home.svg'
+import { NavLink } from 'react-router-dom';
+import LoggedUser from '../LoggedUser';
 
-export default function HeaderAdmin(){
+export default function HeaderAdmin() {
 
-    return(
+    return (
         <header className="header-admin">
-        <nav className="container">
-            <h1>DSC Admin</h1>
-            <div className="navbar-right">
-                <div className="menu-items-container">
-                    <div className="menu-item">
-                        <img src={homeIcon} alt="Início" />
-                        <p>Início</p>
+            <nav className="container">
+                <h1>DSC Admin</h1>
+                <div className="navbar-right">
+                    <div className="menu-items-container">
+                        <div className="menu-item">
+                            <NavLink to='/admin/home' className={({isActive}) => isActive ? "menu-item-active" : ""}>
+                                <img src={homeIcon} alt="Início" />
+                                <p>Início</p>
+                            </NavLink>
+                        </div>
+                        <div className="menu-item">
+                            <NavLink to="/admin/product" className={({isActive}) => isActive ? "menu-item-active" : ""}>
+                                <img src={productIcon} alt="Produtos" />
+                                <p>Produtos</p>
+                            </NavLink>
+                        </div>
                     </div>
-                    <div className="menu-item">
-                        <img src={productIcon} alt="Produtos" />
-                        <p className="menu-item-active">Produtos</p>
+                    <div className="logged-user">
+                        <LoggedUser />
                     </div>
                 </div>
-                <div className="logged-user">
-                    <p>Maria Silva</p>
-                    <a href="a">Sair</a>
-                </div>
-            </div>
-        </nav>
-    </header>
+            </nav>
+        </header>
     );
 }
