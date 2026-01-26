@@ -32,7 +32,8 @@ axios.interceptors.request.use(
 // RESPONSE INTERCEPTOR
 axios.interceptors.response.use(
     function (response) {
-        // DO SOMETHING WITH RESPONSE DATA IF STATUS IS 2xxreturn response;
+        // DO SOMETHIN WITH RESPONSE DATA IF STATUS IS 2xxreturn response;
+        return response;
     },
     function (error) {
         if (error.response.status === 401){
@@ -41,5 +42,6 @@ axios.interceptors.response.use(
         if (error.response.status === 403){
             history.push("/catalog")
         }
+        
     }
 )

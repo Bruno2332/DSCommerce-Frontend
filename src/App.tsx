@@ -1,5 +1,5 @@
 
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Catalog from './routes/ClientHome/Catalog';
 import ProductDetails from './routes/ClientHome/ProductDetails';
 import ClientHome from './routes/ClientHome';
@@ -31,7 +31,7 @@ function App() {
                 <Route path='login' element={<Login />} />
               </Route>
               <Route path='*' element={<Navigate to="/" />} />
-              <Route path="/admin" element={<PrivateRoute><Admin /></PrivateRoute>}>
+              <Route path="/admin" element={<PrivateRoute roles={['ROLE_ADMIN']}><Admin /></PrivateRoute>}>
                 <Route index element={<HomeAdmin />}/>
               </Route>
           </Routes>
