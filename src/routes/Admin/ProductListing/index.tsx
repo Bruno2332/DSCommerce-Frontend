@@ -1,7 +1,35 @@
 import './styles.css'
 import lupaIcon from '../../../assets/lupa-icon.svg'
+import editIcon from '../../../assets/editar.svg'
+import removeIcon from '../../../assets/remover.svg'
+import { useEffect, useState } from 'react';
+import * as productService from '../../../services/product-service'
+import type { ProductDTO } from '../../../models/product';
+
+type QueryParams = {
+    page: number;
+    name: string;
+}
 
 export default function ProductListing() {
+
+    const [isLastPage, setIsLastPage] = useState(false);
+
+    const [products, setProducts] = useState<ProductDTO[]>([]);
+
+    const [queryParams, setQueryParams] = useState<QueryParams>({
+        page: 0,
+        name: ""
+    });
+
+    useEffect(() => {
+        productService.findPageRequest(queryParams.page, queryParams.name)
+            .then(response => {
+                const nextPage = response.data.content;
+                setProducts(products.concat(nextPage));
+                setIsLastPage(response.data.last);
+            })
+    }, [queryParams])
 
     return (
         <main>
@@ -29,15 +57,18 @@ export default function ProductListing() {
                         <th></th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td className="tb576">341</td>
-                            <td><img className="prduct-listing-image" src="img/computer.png" alt="Computer" /></td>
-                            <td className="tb768">R$ 5000,00</td>
-                            <td className="txt-left">Computador Gamer XT Plus Ultra</td>
-                            <td><img className="product-listing-icon" src="img/editar.svg" alt="Editar" /></td>
-                            <td><img className="product-listing-icon" src="img/remover.svg" alt="Remover" /></td>
-                        </tr>
-
+                        {
+                            products.map(product => (
+                                <tr>
+                                    <td className="tb576">{product.id}</td>
+                                    <td><img className="prduct-listing-image" src={product.imgUrl} alt={product.name} /></td>
+                                    <td className="tb768">R$ {product.price.toFixed(2)}</td>
+                                    <td className="txt-left">{product.name}</td>
+                                    <td><img className="product-listing-icon" src={editIcon} alt="Editar" /></td>
+                                    <td><img className="product-listing-icon" src={removeIcon} alt="Remover" /></td>
+                                </tr>
+                            ))
+                        }
                     </tbody>
                 </table>
 
