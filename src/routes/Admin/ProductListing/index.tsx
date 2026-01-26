@@ -1,10 +1,11 @@
 import './styles.css'
-import lupaIcon from '../../../assets/lupa-icon.svg'
 import editIcon from '../../../assets/editar.svg'
 import removeIcon from '../../../assets/remover.svg'
 import { useEffect, useState } from 'react';
 import * as productService from '../../../services/product-service'
 import type { ProductDTO } from '../../../models/product';
+import SearchBar from '../../../components/SearchBar';
+import ButtonNextPage from '../../../components/ButtonNextPage';
 
 type QueryParams = {
     page: number;
@@ -31,6 +32,16 @@ export default function ProductListing() {
             })
     }, [queryParams])
 
+    function handleSearch(searchText: string){
+        setProducts([]);
+        setQueryParams({...queryParams, page: 0, name: searchText});
+    }
+
+    function handleNextPageClick(){
+        setQueryParams({...queryParams, page: queryParams.page + 1})
+    }
+
+
     return (
         <main>
             <section id="product-listing-section" className="container">
@@ -41,11 +52,7 @@ export default function ProductListing() {
                     </div>
                 </div>
 
-                <form className="search-bar">
-                    <button type="submit"><img src={lupaIcon} alt="Pesquisar" /></button>
-                    <input type="text" placeholder="Nome do produto" />
-                    <button type="reset">X</button>
-                </form>
+                <SearchBar onSearch={handleSearch}/>
 
                 <table className="table mb20 mt20">
                     <thead>
@@ -59,7 +66,7 @@ export default function ProductListing() {
                     <tbody>
                         {
                             products.map(product => (
-                                <tr>
+                                <tr key={product.id}>
                                     <td className="tb576">{product.id}</td>
                                     <td><img className="prduct-listing-image" src={product.imgUrl} alt={product.name} /></td>
                                     <td className="tb768">R$ {product.price.toFixed(2)}</td>
@@ -71,10 +78,11 @@ export default function ProductListing() {
                         }
                     </tbody>
                 </table>
-
-                <div className="btn-next-page">
-                    Carregar mais
-                </div>
+                {
+                    !isLastPage &&
+                    <ButtonNextPage onNextPage={handleNextPageClick} />
+                }
+                
             </section >
         </main>
     );

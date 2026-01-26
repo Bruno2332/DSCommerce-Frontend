@@ -1,8 +1,12 @@
 import './styles.css'
 
-export default function ButtonNextPage() {
+type Props = {
+    onNextPage: Function;
+}
+
+export default function ButtonNextPage({ onNextPage } : Props) {
     return (
-        <div className="btn-next-page">
+        <div onClick={() => onNextPage()} className="btn-next-page">
             Carregar mais
         </div>
     );
