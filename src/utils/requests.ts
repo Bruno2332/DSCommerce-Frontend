@@ -42,6 +42,7 @@ axios.interceptors.response.use(
         if (error.response.status === 403){
             history.push("/catalog")
         }
+        return Promise.reject(error);
         
     }
 )
