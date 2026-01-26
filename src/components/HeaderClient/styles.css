@@ -2,3 +2,11 @@
     background-color: var(--dsc-color-bg-secondary);
     color: var(--dsc-color-font-primary);
 }
+
+.logged-menu {
+    text-align: right;
+}
+
+.logged-menu {
+    font-size: 12px;
+}
