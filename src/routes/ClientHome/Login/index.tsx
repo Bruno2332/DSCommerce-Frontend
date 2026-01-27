@@ -4,21 +4,38 @@ import type { CredentialsDTO } from '../../../models/auth';
 import * as authService from '../../../services/auth-service'
 import { useNavigate } from 'react-router-dom';
 import { ContextToken } from '../../../utils/context-token';
+import FormInput from '../../../components/FormInput';
 
-export default function(){
+export default function () {
 
     const { setContextTokenPayload } = useContext(ContextToken);
 
-    const [formData, setFormData] = useState<CredentialsDTO>({
-        username: "",
-        password: ""
-    })
+    const [formData, setFormData] = useState<any>({
+        username: {
+            value: "",
+            id: "username",
+            name: "username",
+            type: "text",
+            placeholder: "Email",
+            validation: function (value: string) {
+                return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(value.toLowerCase());
+            },
+            message: "Favor informar um email válido",
+        },
+        password: {
+            value: "",
+            id: "password",
+            name: "password",
+            type: "password",
+            placeholder: "Senha",
+        }
+    });
 
     const navigate = useNavigate();
 
-    function handleSubmit(event: any){
+    function handleSubmit(event: any) {
         event.preventDefault();
-        authService.loginRequest(formData)
+        authService.loginRequest({username: formData.username.value, password: formData.password.value})
             .then(response => {
                 authService.saveAccessToken(response.data.access_token);
                 setContextTokenPayload(authService.getAccessTokenPayload());
@@ -30,14 +47,14 @@ export default function(){
             })
     }
 
-    function handleInputChange(event: any){
+    function handleInputChange(event: any) {
         const value = event.target.value;
         const name = event.target.name;
-        setFormData({ ...formData, [name] : value})
+        setFormData({ ...formData, [name]: { ...formData[name], value: value} })
 
     }
 
-    return(
+    return (
 
         <section id="login-section" className="container">
             <div className="login-form-container">
@@ -45,25 +62,19 @@ export default function(){
                     <h2 className="mb10">Login</h2>
                     <div className="form-controls-container">
                         <div>
-                            <input
-                                name="username"
-                                value={formData.username} 
-                                className="form-controls" 
-                                type="text" 
-                                placeholder="Email"
-                                onChange={handleInputChange} 
-                                />
+                            <FormInput
+                                { ...formData.username }
+                                className="form-controls"
+                                onChange={handleInputChange}
+                            />
                             <div className="form-error"></div>
                         </div>
                         <div>
-                            <input 
-                                name='password'
-                                value={formData.password}
-                                className="form-controls" 
-                                type="password" 
-                                placeholder="Senha" 
+                            <FormInput
+                                { ...formData.password }
+                                className="form-controls"
                                 onChange={handleInputChange}
-                                />  
+                            />
                         </div>
                     </div>
                     <div className="login-form-buttons mt20">
@@ -72,7 +83,7 @@ export default function(){
                 </form>
 
             </div>
-            
+
 
         </section>
     );
