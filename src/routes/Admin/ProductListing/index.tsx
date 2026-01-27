@@ -23,6 +23,7 @@ export default function ProductListing() {
 
     const [dialogConfirmationData, setDialogConfirmationData] = useState({
         visible: false,
+        id: 0,
         message: "Tem certeza?"
     })
 
@@ -44,26 +45,38 @@ export default function ProductListing() {
             })
     }, [queryParams])
 
-    function handleSearch(searchText: string){
+    function handleSearch(searchText: string) {
         setProducts([]);
-        setQueryParams({...queryParams, page: 0, name: searchText});
+        setQueryParams({ ...queryParams, page: 0, name: searchText });
     }
 
-    function handleNextPageClick(){
-        setQueryParams({...queryParams, page: queryParams.page + 1})
+    function handleNextPageClick() {
+        setQueryParams({ ...queryParams, page: queryParams.page + 1 })
     }
 
-    function handleDialogInfoClose(){
-        setDialogInfoData({...dialogInfoData, visible: false})
+    function handleDialogInfoClose() {
+        setDialogInfoData({ ...dialogInfoData, visible: false })
     }
 
-    function handleDeleteClick(){
-        setDialogConfirmationData({...dialogConfirmationData, visible: true})
+    function handleDeleteClick(ProductId: number) {
+        setDialogConfirmationData({ ...dialogConfirmationData, id: ProductId, visible: true })
     }
 
-    function handleDialogConfirmationAnswer(answer: boolean){
-        console.log("r", answer);
-        setDialogConfirmationData({...dialogConfirmationData, visible: false})
+    function handleDialogConfirmationAnswer(answer: boolean, productId: number) {
+        if (answer) {
+            productService.deleteById(productId)
+                .then(() => {
+                    setProducts([]);
+                    setQueryParams({ ...queryParams, page: 0 })
+                })
+                .catch(error => {
+                    setDialogInfoData({
+                        visible: true,
+                        message: error.response.data.error
+                    })
+                });
+        }
+        setDialogConfirmationData({ ...dialogConfirmationData, visible: false })
     }
 
 
@@ -77,16 +90,18 @@ export default function ProductListing() {
                     </div>
                 </div>
 
-                <SearchBar onSearch={handleSearch}/>
+                <SearchBar onSearch={handleSearch} />
 
                 <table className="table mb20 mt20">
                     <thead>
-                        <th className="tb576">ID</th>
-                        <th></th>
-                        <th className="tb768">Preço</th>
-                        <th className="txt-left">Nome</th>
-                        <th></th>
-                        <th></th>
+                        <tr>
+                            <th className="tb576">ID</th>
+                            <th></th>
+                            <th className="tb768">Preço</th>
+                            <th className="txt-left">Nome</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
                     </thead>
                     <tbody>
                         {
@@ -97,7 +112,7 @@ export default function ProductListing() {
                                     <td className="tb768">R$ {product.price.toFixed(2)}</td>
                                     <td className="txt-left">{product.name}</td>
                                     <td><img className="product-listing-icon" src={editIcon} alt="Editar" /></td>
-                                    <td><img onClick={handleDeleteClick} className="product-listing-icon" src={removeIcon} alt="Remover" /></td>
+                                    <td><img onClick={() => handleDeleteClick(product.id)} className="product-listing-icon" src={removeIcon} alt="Remover" /></td>
                                 </tr>
                             ))
                         }
@@ -107,21 +122,22 @@ export default function ProductListing() {
                     !isLastPage &&
                     <ButtonNextPage onNextPage={handleNextPageClick} />
                 }
-                
+
             </section >
             {
                 dialogInfoData.visible &&
-                <DialogInfo 
-                    message={dialogInfoData.message} 
+                <DialogInfo
+                    message={dialogInfoData.message}
                     onDialogClose={handleDialogInfoClose}
-                    />
+                />
             }
             {
                 dialogConfirmationData.visible &&
                 <DialogConfirmation
-                    message={dialogConfirmationData.message} 
+                    id={dialogConfirmationData.id}
+                    message={dialogConfirmationData.message}
                     onDialogAnswer={handleDialogConfirmationAnswer}
-                    />
+                />
             }
         </main>
     );
