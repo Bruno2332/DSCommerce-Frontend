@@ -6,6 +6,7 @@ import * as productService from '../../../services/product-service'
 import type { ProductDTO } from '../../../models/product';
 import SearchBar from '../../../components/SearchBar';
 import ButtonNextPage from '../../../components/ButtonNextPage';
+import DialogInfo from '../../../components/DialogInfo';
 
 type QueryParams = {
     page: number;
@@ -13,6 +14,11 @@ type QueryParams = {
 }
 
 export default function ProductListing() {
+
+    const [dialogInfoData, setDialogInfoData] = useState({
+        visible: false,
+        message: "Operação com sucesso"
+    })
 
     const [isLastPage, setIsLastPage] = useState(false);
 
@@ -39,6 +45,14 @@ export default function ProductListing() {
 
     function handleNextPageClick(){
         setQueryParams({...queryParams, page: queryParams.page + 1})
+    }
+
+    function handleDialogInfoClose(){
+        setDialogInfoData({...dialogInfoData, visible: false})
+    }
+
+    function handleDeleteClick(){
+        setDialogInfoData({...dialogInfoData, visible: true})
     }
 
 
@@ -72,7 +86,7 @@ export default function ProductListing() {
                                     <td className="tb768">R$ {product.price.toFixed(2)}</td>
                                     <td className="txt-left">{product.name}</td>
                                     <td><img className="product-listing-icon" src={editIcon} alt="Editar" /></td>
-                                    <td><img className="product-listing-icon" src={removeIcon} alt="Remover" /></td>
+                                    <td><img onClick={handleDeleteClick} className="product-listing-icon" src={removeIcon} alt="Remover" /></td>
                                 </tr>
                             ))
                         }
@@ -84,6 +98,13 @@ export default function ProductListing() {
                 }
                 
             </section >
+            {
+                dialogInfoData.visible &&
+                <DialogInfo 
+                    message={dialogInfoData.message} 
+                    onDialogClose={handleDialogInfoClose}
+                    />
+            }
         </main>
     );
 }
