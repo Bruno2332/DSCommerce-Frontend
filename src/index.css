@@ -244,14 +244,19 @@ nav a {
     border: 1px solid var(--dsc-color-card-border);
 }
 
-.input-error {
+.form-controls[data-invalid="true"] {
     border: 1px solid var(--dsc-color-error);
+}
+
+.form-controls[data-invalid="true"] ~ div {
+    display: unset;
 }
 
 .form-error {
     color: var(--dsc-color-error);
     font-size: 12px;
     padding-left: 4px;
+    display: none;
 }
 
 .form-controls:focus {
