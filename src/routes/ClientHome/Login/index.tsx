@@ -48,9 +48,13 @@ export default function () {
     }
 
     function handleInputChange(event: any) {
-        const value = event.target.value;
-        const name = event.target.name;
-        setFormData(forms.update(formData, name, value))
+        const result = forms.updateAndValidate(formData, event.target.name, event.target.value);
+        setFormData(result);
+    }
+
+    function handleTurnDirty(name: string) {
+        const newFormData = forms.dirtyAndValidate(formData, name);
+        setFormData(newFormData);
     }
 
     return (
@@ -62,16 +66,18 @@ export default function () {
                     <div className="form-controls-container">
                         <div>
                             <FormInput
-                                { ...formData.username }
+                                {...formData.username}
                                 className="form-controls"
+                                onTurnDirty={handleTurnDirty}
                                 onChange={handleInputChange}
                             />
                             <div className="form-error"></div>
                         </div>
                         <div>
                             <FormInput
-                                { ...formData.password }
+                                {...formData.password}
                                 className="form-controls"
+                                onTurnDirty={handleTurnDirty}
                                 onChange={handleInputChange}
                             />
                         </div>
