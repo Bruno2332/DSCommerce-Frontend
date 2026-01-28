@@ -53,8 +53,8 @@ function App() {
               <Route path="admin" element={<PrivateRoute roles={['ROLE_ADMIN']}><Admin /></PrivateRoute>}>
                 <Route index element={<Navigate to='/admin/home' />} />
                 <Route path='home' element={<HomeAdmin />} />
-                <Route path='product' element={<ProductListing />}/>
-                <Route path='product/:productId' element={<ProductForm />}/>
+                <Route path='products' element={<ProductListing />}/>
+                <Route path='products/:productId' element={<ProductForm />}/>
               </Route>
             </Routes>
           </HistoryRouter>
