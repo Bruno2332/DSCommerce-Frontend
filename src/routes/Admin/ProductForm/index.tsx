@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import FormInput from '../../../components/FormInput';
 import * as forms from '../../../utils/forms'
 import * as productService from '../../../services/product-service'
+import FormTextArea from '../../../components/FormTextArea';
 
 
 export default function ProductForm() {
@@ -19,7 +20,7 @@ export default function ProductForm() {
             name: "name",
             type: "text",
             placeholder: "Nome",
-            validation: function(value: string) {
+            validation: function (value: string) {
                 return value.length >= 3 && value.length <= 80;
             },
             message: "Favor informar um nome de 3 a 80 caracteres"
@@ -30,7 +31,7 @@ export default function ProductForm() {
             name: "price",
             type: "number",
             placeholder: "Preço",
-            validation: function(value: any){
+            validation: function (value: any) {
                 return Number(value) > 0;
             },
             message: "Favor informar um valor positivo"
@@ -42,11 +43,22 @@ export default function ProductForm() {
             name: "imgUrl",
             type: "text",
             placeholder: "Imagem",
+        },
+        description: {
+            value: "",
+            id: "description",
+            name: "description",
+            type: "text",
+            placeholder: "Descrição",
+            validation: function (value: string) {
+                return /^.{10,}$/.test(value);
+            },
+            message: "A descrição deve ter no mínimo 10 caracteres"
         }
     });
 
     useEffect(() => {
-        if (isEditing){
+        if (isEditing) {
             productService.findById(Number(params.productId))
                 .then(response => {
                     setFormData(forms.updateAll(formData, response.data));
@@ -58,8 +70,8 @@ export default function ProductForm() {
         const result = forms.updateAndValidate(formData, event.target.name, event.target.value);
         setFormData(result);
     }
-    
-    function handleTurnDirty(name: string){
+
+    function handleTurnDirty(name: string) {
         const newFormData = forms.dirtyAndValidate(formData, name);
         setFormData(newFormData);
     }
@@ -95,6 +107,15 @@ export default function ProductForm() {
                                 onTurnDirty={handleTurnDirty}
                                 onChange={handleInputChange}
                             />
+                        </div>
+                        <div>
+                            <FormTextArea
+                                {...formData.description}
+                                className="form-controls textarea"
+                                onTurnDirty={handleTurnDirty}
+                                onChange={handleInputChange}
+                            />
+                            <div className='form-error'>{formData.description.message}</div>
                         </div>
 
                     </div>
