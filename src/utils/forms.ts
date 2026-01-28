@@ -13,6 +13,7 @@ export function toValues(inputs: any){
     return data;
 }
 
+
 export function updateAll(inputs: any, newValues: any){
     const newInputs: any = {};
     for (var name in inputs) {
@@ -21,9 +22,14 @@ export function updateAll(inputs: any, newValues: any){
     return newInputs;
 }
 
+
 export function validate(inputs: any, name: string){
 
     const isInvalid = !inputs[name].validation(inputs[name].value)
 
     return { ...inputs, [name]: { ...inputs[name], invalid: isInvalid.toString() }}
+}
+
+export function toDirty(inputs: any, name: string){
+    return { ...inputs, [name]: { ...inputs[name], dirty: "true" }}
 }
