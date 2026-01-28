@@ -71,7 +71,7 @@ export default function () {
                                 onTurnDirty={handleTurnDirty}
                                 onChange={handleInputChange}
                             />
-                            <div className="form-error"></div>
+                            <div className="form-error">{formData.username.message}</div>
                         </div>
                         <div>
                             <FormInput
