@@ -267,22 +267,16 @@ nav a {
     color: var(--dsc-color-font-placeholder);
 }
 
-.select:invalid {
-    color: var(--dsc-color-font-placeholder);
-}
-
-.select option[disabled]{
-    display: none;
-}
-
-.select option {
-    color: var(--dsc-color-font-primary);
-}
-
 .textarea {
     resize: none;
     height: 128px;
     padding-top: 10px;
+}
+
+.form-select-container {
+    padding: unset;
+    padding-left: 10px;
+    height: unset;
 }
 
 @media (min-width: 576px){
