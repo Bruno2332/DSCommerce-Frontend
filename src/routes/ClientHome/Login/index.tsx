@@ -10,6 +10,8 @@ export default function () {
 
     const { setContextTokenPayload } = useContext(ContextToken);
 
+    const [submitResponseFail, setSubmitResponseFail] = useState(false);
+
     const [formData, setFormData] = useState<any>({
         username: {
             value: "",
@@ -35,6 +37,14 @@ export default function () {
 
     function handleSubmit(event: any) {
         event.preventDefault();
+
+        setSubmitResponseFail(false);
+        const formDataValidated = forms.dirtyAndValidateAll(formData);
+        if (forms.hasAnyInvalid(formDataValidated)) {
+            setFormData(formDataValidated);
+            return;
+        }
+
         authService.loginRequest(forms.toValues(formData))
             .then(response => {
                 authService.saveAccessToken(response.data.access_token);
@@ -42,9 +52,9 @@ export default function () {
 
                 navigate("/cart")
             })
-            .catch(error => {
-                console.log("erro de login", error);
-            })
+            .catch(() => {
+                setSubmitResponseFail(true);
+            });
     }
 
     function handleInputChange(event: any) {
@@ -82,6 +92,13 @@ export default function () {
                             />
                         </div>
                     </div>
+                    {
+                        submitResponseFail &&
+                        <div className='form-global-error'>
+                            Usuário ou senha inválidos
+                        </div>
+                    }
+
                     <div className="login-form-buttons mt20">
                         <button type="submit" className="btn btn-blue">Entrar</button>
                     </div>
