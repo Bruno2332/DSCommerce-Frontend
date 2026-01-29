@@ -1,5 +1,5 @@
 import './styles.css'
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import FormInput from '../../../components/FormInput';
 import * as forms from '../../../utils/forms'
@@ -14,6 +14,8 @@ import { selectStyles } from '../../../utils/select';
 export default function ProductForm() {
 
     const params = useParams();
+
+    const navigate = useNavigate();
 
     const isEditing = params.productId !== 'create';
 
@@ -66,7 +68,7 @@ export default function ProductForm() {
             id: "categories",
             name: "categories",
             placeholder: "Categorias",
-            validation: function(value: CategoryDTO[]) {
+            validation: function (value: CategoryDTO[]) {
                 return value.length > 0;
             },
             message: "Deve ter ao menos uma categoria"
@@ -99,14 +101,28 @@ export default function ProductForm() {
         setFormData(newFormData);
     }
 
-    function handleSubmit(event: any){
+    function handleSubmit(event: any) {
         event.preventDefault();
 
         const formDataValidated = forms.dirtyAndValidateAll(formData);
-        if (forms.hasAnyInvalid(formDataValidated)){
+        if (forms.hasAnyInvalid(formDataValidated)) {
             setFormData(formDataValidated);
             return;
         }
+
+        const requestBody = forms.toValues(formData);
+        if (isEditing) {
+            requestBody.id = params.productId;
+        }
+
+        const request = isEditing
+            ? productService.updateRequest(requestBody)
+            : productService.insertRequest(requestBody);
+
+        request
+            .then(() => {
+                navigate("/admin/products")
+            })
     }
 
     return (
@@ -143,7 +159,7 @@ export default function ProductForm() {
                         </div>
                         <div>
                             <FormSelect
-                                { ...formData.categories }
+                                {...formData.categories}
                                 className="form-controls form-select-container"
                                 styles={selectStyles}
                                 options={categories}
