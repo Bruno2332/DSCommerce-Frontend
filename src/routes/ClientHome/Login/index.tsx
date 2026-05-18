@@ -103,10 +103,7 @@ export default function () {
                         <button type="submit" className="btn btn-blue">Entrar</button>
                     </div>
                 </form>
-
             </div>
-
-
         </section>
     );
 }

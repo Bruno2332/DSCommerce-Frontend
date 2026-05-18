@@ -6,12 +6,13 @@ import { Link } from 'react-router-dom';
 
 export default function LoggedUser() {
 
-    const { contextTokenPayload, setContextTokenPayload } = useContext(ContextToken)
+    const { contextTokenPayload, setContextTokenPayload } = useContext(ContextToken);
 
     function handleLogout() {
         authService.logout();
         setContextTokenPayload(undefined);
     }
+
     return (
         <>
             {

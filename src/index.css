@@ -278,11 +278,6 @@ nav a {
     color: var(--dsc-color-font-placeholder);
 }
 
-.textarea {
-    resize: none;
-    height: 128px;
-    padding-top: 10px;
-}
 
 .form-select-container {
     padding: unset;
